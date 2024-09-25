@@ -20,7 +20,7 @@ public class SignupService {
 
         Boolean isExist = memberRepository.existsByUsername(memberRequestDto.getUsername());
         if(isExist){
-            throw new CustomException(ErrorCode.USER_EMAIL_ALREADY_EXISTS);
+            throw new CustomException(ErrorCode.USER_NAME_ALREADY_EXISTS);
         }
         // dto -> entity
         MemberEntity memberEntity = MemberEntity.builder()

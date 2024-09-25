@@ -16,7 +16,7 @@ public enum ErrorCode {
 
     // Member
     MEMBER_NOT_EXIST(404, "M001", "member not exist"),
-    USER_EMAIL_ALREADY_EXISTS(400, "M002", "user email already exists"),
+    USER_NAME_ALREADY_EXISTS(400, "M002", "user name already exists"),
     NO_AUTHORITY(403, "M003", "no authority"),
     NEED_LOGIN(401, "M004", "need login"),
     AUTHENTICATION_NOT_FOUND(401, "M005", "no authenticated data in security context "),
