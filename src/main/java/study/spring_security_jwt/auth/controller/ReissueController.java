@@ -25,13 +25,13 @@ public class ReissueController {
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
         try {
             ResultResponse resultResponse = reissueService.reissue(request, response);
-            return new ResponseEntity<>(resultResponse, HttpStatus.OK);
+            return new ResponseEntity<>(resultResponse, HttpStatus.valueOf(resultResponse.getStatus()));
         } catch (ExpiredJwtException e) {
             ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.JWT_TOKEN_EXPIRED);
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorResponse.getStatus()));
         } catch (IllegalArgumentException e) {
             ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.REFRESH_TOKEN_INVALID);
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorResponse.getStatus()));
         }
     }
 }

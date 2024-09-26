@@ -8,6 +8,7 @@ import study.spring_security_jwt.auth.domain.repository.MemberRepository;
 import study.spring_security_jwt.auth.dto.MemberDto;
 import study.spring_security_jwt.global.error.ErrorCode;
 import study.spring_security_jwt.global.error.exception.CustomException;
+import study.spring_security_jwt.global.error.exception.DuplicateUsernameException;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +21,13 @@ public class SignupService {
 
         Boolean isExist = memberRepository.existsByUsername(memberRequestDto.getUsername());
         if(isExist){
-            throw new CustomException(ErrorCode.USER_NAME_ALREADY_EXISTS);
+            throw new DuplicateUsernameException();
         }
         // dto -> entity
         MemberEntity memberEntity = MemberEntity.builder()
                 .id(memberRequestDto.getId())
                 .username(memberRequestDto.getUsername())
-                .role("ROLE_ADMIN")
+                .role("ROLE_USER")
                 .password(bCryptPasswordEncoder.encode(memberRequestDto.getPassword()))
                 .build();
 

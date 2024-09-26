@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     protected ResponseEntity<ErrorResponse> handleBindException(BindException e) {
         final ErrorResponse response = ErrorResponse.of(INVALID_INPUT_VALUE, e.getBindingResult());
-        System.out.println("================== 메소드 콜");
+        System.out.println("==================  @Valid, @Validated 에서 binding error 발생 시 (@RequestBody)");
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleBusinessException(CustomException e) {
         final ErrorCode errorCode = e.getErrorCode();
         final ErrorResponse response = ErrorResponse.of(errorCode, e.getErrors());
-        System.out.println("================== 메소드 콜2");
+        System.out.println("================== 비즈니스 요구사항에 따른 Exception");
         return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
     }
 

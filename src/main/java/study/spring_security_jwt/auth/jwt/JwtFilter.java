@@ -52,6 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
             //response status code
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            // response.setStatus(ErrorCode.JWT_TOKEN_EXPIRED.getStatus());
             return;
         }
 

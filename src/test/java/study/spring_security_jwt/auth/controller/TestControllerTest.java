@@ -42,4 +42,14 @@ class TestControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
+
+    @Test
+    @DisplayName("get: /test 인증 없이 접근 시 401 에러")
+    void testPage_ShouldReturnUnauthorized_WhenNotAuthenticated() throws Exception {
+        mockMvc.perform(get("/test")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
+    }
+
 }
