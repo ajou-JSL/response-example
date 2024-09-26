@@ -27,7 +27,7 @@ public class SignupService {
         MemberEntity memberEntity = MemberEntity.builder()
                 .id(memberRequestDto.getId())
                 .username(memberRequestDto.getUsername())
-                .role("ROLE_USER")
+                .role("ROLE_ADMIN")
                 .password(bCryptPasswordEncoder.encode(memberRequestDto.getPassword()))
                 .build();
 

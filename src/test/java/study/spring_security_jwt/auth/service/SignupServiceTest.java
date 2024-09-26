@@ -12,6 +12,7 @@ import study.spring_security_jwt.auth.domain.repository.MemberRepository;
 import study.spring_security_jwt.auth.dto.MemberDto;
 import study.spring_security_jwt.global.error.ErrorCode;
 import study.spring_security_jwt.global.error.exception.CustomException;
+import study.spring_security_jwt.global.error.exception.DuplicateUsernameException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,7 +49,7 @@ class SignupServiceTest {
         when(memberRepository.existsByUsername(memberRequestDto.getUsername())).thenReturn(true);
 
         // Then
-        CustomException thrown = assertThrows(CustomException.class, () -> {
+        DuplicateUsernameException thrown = assertThrows(DuplicateUsernameException.class, () -> {
             signupService.signupMember(memberRequestDto);
         });
 
@@ -68,12 +69,24 @@ class SignupServiceTest {
 
         // When
         when(memberRepository.existsByUsername(memberRequestDto.getUsername())).thenReturn(false);
-        when(bCryptPasswordEncoder.encode(memberRequestDto.getPassword())).thenReturn("encodedPassword");
+        //when(bCryptPasswordEncoder.encode(memberRequestDto.getPassword())).thenReturn("encodedPassword");
 
+        // Mock the save operation to return the saved entity
+        MemberEntity savedMemberEntity = MemberEntity.builder()
+                .id(memberRequestDto.getId())
+                .username(memberRequestDto.getUsername())
+                .password("password123") // Save the encoded password
+                .build();
+
+        when(memberRepository.save(any(MemberEntity.class))).thenReturn(savedMemberEntity);
+
+        // Execute the signup
         signupService.signupMember(memberRequestDto);
 
-        // Then
-        // verify that save was called on memberRepository
-        // additional assertions can be done here if needed
+        // Now use assertEquals to verify the properties
+        assertEquals(1, savedMemberEntity.getId());
+        assertEquals("newUser", savedMemberEntity.getUsername());
+        assertEquals("password123", savedMemberEntity.getPassword());
+        // Check the password should be encoded
     }
 }

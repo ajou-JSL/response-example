@@ -17,6 +17,8 @@ import study.spring_security_jwt.auth.domain.entity.RefreshEntity;
 import study.spring_security_jwt.auth.domain.repository.RefreshRepository;
 import study.spring_security_jwt.global.error.ErrorCode;
 import study.spring_security_jwt.global.error.ErrorResponse;
+import study.spring_security_jwt.global.response.ResponseCode;
+import study.spring_security_jwt.global.response.ResultResponse;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -65,10 +67,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     addRefreshEntity(username, refresh, 86400000L); // 24h
 
     //응답 설정
+        // ResultResponse resultResponse = ResultResponse.of(ResponseCode.LOGIN_SUCCESS, username);
     response.setHeader("access", access);
     response.addCookie(createCookie("refresh", refresh));
     response.setStatus(HttpStatus.OK.value());
-
+        //response.setStatus(resultResponse.getStatus());
     }
 
     private void addRefreshEntity(String username, String refresh, Long expiredMs) {

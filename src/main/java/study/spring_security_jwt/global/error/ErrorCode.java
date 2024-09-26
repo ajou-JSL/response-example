@@ -24,7 +24,7 @@ public enum ErrorCode {
 
     // Auth
     REFRESH_TOKEN_INVALID(400, "A001", "refresh token invalid"),
-    JWT_TOKEN_EXPIRED(400, "A002", "jwt token is expired");
+    JWT_TOKEN_EXPIRED(401, "A002", "jwt token is expired");
 
     private final int status;
     private final String code;
