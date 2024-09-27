@@ -63,7 +63,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join","/join2","/reissue").permitAll()
+                        .requestMatchers("/login", "/", "/join","/join2","/reissue","/send-mail").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()); // 나머지는 로그인한 유저만 인가허용
 

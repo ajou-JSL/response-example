@@ -2,6 +2,7 @@ package study.spring_security_jwt.global.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import study.spring_security_jwt.email.config.EmailConfig;
 
 @Getter
 @AllArgsConstructor
@@ -24,7 +25,9 @@ public enum ErrorCode {
 
     // Auth
     REFRESH_TOKEN_INVALID(400, "A001", "refresh token invalid"),
-    JWT_TOKEN_EXPIRED(401, "A002", "jwt token is expired");
+    JWT_TOKEN_EXPIRED(401, "A002", "jwt token is expired"),
+
+    EMAIL_VERIFY_FAILED(400,"E001","email verify failed");
 
     private final int status;
     private final String code;

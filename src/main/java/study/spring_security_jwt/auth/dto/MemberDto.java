@@ -1,6 +1,7 @@
 package study.spring_security_jwt.auth.dto;
 
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,10 +27,16 @@ public class MemberDto {
         @NotEmpty @NotNull
         private String password;
 
+        @NotEmpty @NotNull @Email
+        private String email;
+
+        // private String verifyCode;
+
         public MemberEntity toEntity(){
             return MemberEntity.builder()
                     .id(id)
                     .username(username)
+                    .email(email)
                     .password(password)
                     .build();
         }
